@@ -1,0 +1,703 @@
+@charset "UTF-8";
+* {
+  box-sizing: inherit; /* ke thua tu the html co thuoc tinh boderbox*/
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /*1px = 1rem trick mod %*/
+  line-height: 1.6rem; /*= 16px */
+  font-family: "Roboto", sans-serif; /* chon font , nhung font roboto */
+  box-sizing: border-box; /* set up chinh kich thuoc element trong box */
+}
+
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+a {
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
+input {
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.app {
+  background: rgba(48, 65, 216, 0.9);
+  overflow: hidden;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.app__left {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  transition: transform ease-in-out 1s;
+}
+.app__left h2 {
+  padding: 24px;
+  font-size: 1.6rem;
+  color: #fff;
+}
+.app__left .app__left--content {
+  background: #fff;
+  width: 100%;
+  padding: 12px;
+  margin-left: 24px;
+  border-radius: 4px;
+  height: 85vh;
+  overflow: auto;
+}
+.app__left .app__left--content::-webkit-scrollbar {
+  display: none;
+}
+.app__left .app__left--footer {
+  display: flex;
+  width: 40%;
+  background: #fff;
+  margin: 12px 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+.app__left .app__left--footer p {
+  font-size: 1.6rem;
+  margin: 6px 34px;
+}
+.app__left .app__left--footer i {
+  font-size: 1.6rem;
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+.app__right {
+  position: relative;
+}
+.app__right .app__right--header {
+  display: flex !important;
+  align-items: center;
+  flex-direction: row;
+  padding: 12px;
+}
+.app__right .app__right--header i {
+  color: #fff;
+  font-size: 2.4rem;
+}
+.app__right .app__right--header h2 {
+  padding: 12px;
+  color: #fff;
+}
+.app__right .app__right--content {
+  width: 99.7%;
+  background: #fff;
+  border-radius: 4px;
+  height: 85vh;
+  position: relative;
+  transition: transform ease-in-out 1s;
+}
+
+.app__right--icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3.4rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgba(48, 65, 216, 0.85);
+  width: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.disable {
+  display: none !important;
+}
+
+.data__show {
+  display: flex;
+  font-size: 1.7rem;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 4px;
+  border-radius: 4px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.active--color {
+  background: antiquewhite;
+}
+
+.data__info {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.bulkhead {
+  margin: 0 2px;
+}
+
+.data__info {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.7rem;
+  font-weight: 500;
+  background: rgba(101, 176, 241, 0.9);
+  padding: 15px;
+  line-height: 3.2rem;
+  border-radius: 4px;
+  width: 14.4%;
+}
+.data__info i {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 4px;
+  padding: 4px;
+  background-color: red;
+  font-size: 1.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.active__rightl {
+  width: 120% !important;
+}
+
+/* l = pc, m = tablet, c =mobile*/
+.grid {
+  width: 100%;
+  display: block;
+  padding: 0;
+}
+
+.grid.wide {
+  max-width: 1300px; /*kịch thước max của pc*/
+  margin: 0 auto; /* canh giữa*/
+}
+
+.row {
+  display: flex; /*đặt sang ngang*/
+  flex-wrap: wrap; /* tự động xuống hàng khi tran kích thước 12 cột*/
+  margin-left: -4px; /*đệm 2 bên lề của hàng*/
+  margin-right: -4px;
+}
+
+.row.no-gutters {
+  /* ẩn 2 bên margin của hàng*/
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.col {
+  padding-left: 4px; /*đệm 2 bên cột*/
+  padding-right: 4px;
+}
+
+.row.no-gutters .col {
+  /* ẩn padding 2 bên của cột trong hàng*/
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c-0 {
+  /*ẩn 1 cột trên mobile*/
+  display: none;
+}
+
+/*kích thước cột trên grid 12 cột sẽ bằng 100% chia 12 nhân với số cột cần tính*/
+/* trong đó c-n chính là số cột chiếm n lần trong 12 cột ( với n[1-12]) vd  c-2 thì chiểm 2 cột trong 12 cột grid , n= 5 thì chiếm 5 cột trong 12 cột grid*/
+.c-1 {
+  flex: 0 0 8.33333%; /*set up kích thước cột or dòng tùy vào flex cột hay dòng trên mobile*/
+  max-width: 8.33333%;
+}
+
+.c-2 {
+  flex: 0 0 16.66667%;
+  max-width: 16.66667%;
+}
+
+.c-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.c-4 {
+  flex: 0 0 33.33333%;
+  max-width: 33.33333%;
+}
+
+.c-5 {
+  flex: 0 0 41.66667%;
+  max-width: 41.66667%;
+}
+
+.c-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.c-7 {
+  flex: 0 0 58.33333%;
+  max-width: 58.33333%;
+}
+
+.c-8 {
+  flex: 0 0 66.66667%;
+  max-width: 66.66667%;
+}
+
+.c-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+.c-10 {
+  flex: 0 0 83.33333%;
+  max-width: 83.33333%;
+}
+
+.c-11 {
+  flex: 0 0 91.66667%;
+  max-width: 91.66667%;
+}
+
+.c-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.c-o-1 {
+  /*set up vị trí cột thứ 0-n với n[1-12] trên mobile, trong đó với n là số cột chiếm trong 12 cột, vd c-0-2 là 2 cột trong 12 cột grid. c-0-6 là chiếm hết 6 cột trong 12 cột grid*/
+  margin-left: 8.33333%;
+}
+
+.c-o-2 {
+  margin-left: 16.66667%;
+}
+
+.c-o-3 {
+  margin-left: 25%;
+}
+
+.c-o-4 {
+  margin-left: 33.33333%;
+}
+
+.c-o-5 {
+  margin-left: 41.66667%;
+}
+
+.c-o-6 {
+  margin-left: 50%;
+}
+
+.c-o-7 {
+  margin-left: 58.33333%;
+}
+
+.c-o-8 {
+  margin-left: 66.66667%;
+}
+
+.c-o-9 {
+  margin-left: 75%;
+}
+
+.c-o-10 {
+  margin-left: 83.33333%;
+}
+
+.c-o-11 {
+  margin-left: 91.66667%;
+}
+
+/* >= Tablet */
+@media (min-width: 740px) {
+  .row {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  .col {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .m-0 {
+    display: none;
+  }
+  .m-1,
+  .m-2,
+  .m-3,
+  .m-4,
+  .m-5,
+  .m-6,
+  .m-7,
+  .m-8,
+  .m-9,
+  .m-10,
+  .m-11,
+  .m-12 {
+    display: block;
+  }
+  .m-1 {
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+  .m-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+  .m-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .m-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+  .m-5 {
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+  .m-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .m-7 {
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+  }
+  .m-8 {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+  .m-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .m-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+  }
+  .m-11 {
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+  .m-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .m-o-1 {
+    margin-left: 8.33333%;
+  }
+  .m-o-2 {
+    margin-left: 16.66667%;
+  }
+  .m-o-3 {
+    margin-left: 25%;
+  }
+  .m-o-4 {
+    margin-left: 33.33333%;
+  }
+  .m-o-5 {
+    margin-left: 41.66667%;
+  }
+  .m-o-6 {
+    margin-left: 50%;
+  }
+  .m-o-7 {
+    margin-left: 58.33333%;
+  }
+  .m-o-8 {
+    margin-left: 66.66667%;
+  }
+  .m-o-9 {
+    margin-left: 75%;
+  }
+  .m-o-10 {
+    margin-left: 83.33333%;
+  }
+  .m-o-11 {
+    margin-left: 91.66667%;
+  }
+}
+/* PC medium resolution > */
+@media (min-width: 1113px) {
+  .row {
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+  .row.sm-gutter {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  .col {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .row.sm-gutter .col {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .l-0 {
+    display: none;
+  }
+  .l-1,
+  .l-2,
+  .l-2-4,
+  .l-3,
+  .l-4,
+  .l-5,
+  .l-6,
+  .l-7,
+  .l-8,
+  .l-9,
+  .l-10,
+  .l-11,
+  .l-12 {
+    display: block;
+  }
+  .l-1 {
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+  .l-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+  .l-2-4 {
+    /* cột trên pc chiếm 2 cột trong tổng số 12 cột, tỉ lệ 2/10 chia làm 5 cột trong tổng 12 cột*/
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+  .l-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .l-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+  .l-5 {
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+  .l-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .l-7 {
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+  }
+  .l-8 {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+  .l-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .l-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+  }
+  .l-11 {
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+  .l-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .l-o-1 {
+    margin-left: 8.33333%;
+  }
+  .l-o-2 {
+    margin-left: 16.66667%;
+  }
+  .l-o-3 {
+    margin-left: 25%;
+  }
+  .l-o-4 {
+    margin-left: 33.33333%;
+  }
+  .l-o-5 {
+    margin-left: 41.66667%;
+  }
+  .l-o-6 {
+    margin-left: 50%;
+  }
+  .l-o-7 {
+    margin-left: 58.33333%;
+  }
+  .l-o-8 {
+    margin-left: 66.66667%;
+  }
+  .l-o-9 {
+    margin-left: 75%;
+  }
+  .l-o-10 {
+    margin-left: 83.33333%;
+  }
+  .l-o-11 {
+    margin-left: 91.66667%;
+  }
+}
+/* Tablet - PC low resolution */
+@media (min-width: 740px) and (max-width: 1023px) {
+  .wide {
+    width: 644px;
+  }
+}
+/* > PC low resolution */
+@media (min-width: 1023px) and (max-width: 1240px) {
+  .wide {
+    width: 984px;
+  }
+  .row {
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+  .row.sm-gutter {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  .col {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .row.sm-gutter .col {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .ls-0 {
+    display: none;
+  }
+  .ls-1,
+  .ls-2,
+  .ls-2-4,
+  .ls-3,
+  .ls-4,
+  .ls-5,
+  .ls-6,
+  .ls-7,
+  .ls-8,
+  .ls-9,
+  .ls-10,
+  .ls-11,
+  .ls-12 {
+    display: block;
+  }
+  .ls-1 {
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+  .ls-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+  .ls-2-4 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+  .ls-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .ls-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+  .ls-5 {
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+  .ls-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .ls-7 {
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+  }
+  .ls-8 {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+  .ls-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .ls-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+  }
+  .ls-11 {
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+  .ls-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .ls-o-1 {
+    margin-left: 8.33333%;
+  }
+  .ls-o-2 {
+    margin-left: 16.66667%;
+  }
+  .ls-o-3 {
+    margin-left: 25%;
+  }
+  .ls-o-4 {
+    margin-left: 33.33333%;
+  }
+  .ls-o-5 {
+    margin-left: 41.66667%;
+  }
+  .ls-o-6 {
+    margin-left: 50%;
+  }
+  .ls-o-7 {
+    margin-left: 58.33333%;
+  }
+  .ls-o-8 {
+    margin-left: 66.66667%;
+  }
+  .ls-o-9 {
+    margin-left: 75%;
+  }
+  .ls-o-10 {
+    margin-left: 83.33333%;
+  }
+  .ls-o-11 {
+    margin-left: 91.66667%;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */
