@@ -26,6 +26,7 @@ function handleClickIcon() {
   const iconLeft = $(".icon--left");
   const iconRight = $(".icon--right");
   const itemIcon = $(".app__right--icon");
+  const fixMobilecontent = $(".app__right--header");
   itemIcon.onclick = () => {
     // đổi dấu mũi tên
 
@@ -35,11 +36,23 @@ function handleClickIcon() {
     if (iconLeft.classList.contains("disable")) {
       blockLeft.style.transform = "translateX(-100%)";
       blockRight.style.transform = "translateX(-13%)";
+      // check kich thước man hình mobile
+      if (window.matchMedia("(max-width: 740px)").matches) {
+        // Thực thi code JavaScript tại đây
+        fixMobilecontent.style.transform = "translateX(-50%)";
+      }
       blockRight.classList.add("active__rightl");
     } else {
       // di chuyển về vị trí cũ
       blockLeft.style.transform = "translateX(0%)";
       blockRight.style.transform = "translateX(0%)";
+      // check kich thước man hình mobile
+
+      if (window.matchMedia("(max-width: 740px)").matches) {
+        // Thực thi code JavaScript tại đây
+        fixMobilecontent.style.transform = "translateX(0%)";
+      }
+
       setTimeout(() => {
         blockRight.classList.remove("active__rightl");
       }, 1500);
@@ -259,4 +272,23 @@ function showMap(dataLatlng) {
     .addTo(mymap)
     .bindTooltip("Điểm xuất phát")
     .openTooltip();
+  // tạo thanh control
+
+  let data = dataLatlng;
+  let map = {
+    speed: 2,
+    autoPlay: true,
+    orientIcons: false,
+    marker: {
+      icon: "../assets/img/car.png",
+      iconSize: [24, 24],
+      iconAnchor: [12, 12],
+    },
+  };
+  const trackplayback = L.trackplayback(data, map);
+
+  // Optional  (only if you need plaback control)
+  const trackplaybackControl = L.trackplaybackcontrol(trackplayback);
+
+  trackplaybackControl.addTo(map);
 }

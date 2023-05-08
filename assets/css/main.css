@@ -741,6 +741,9 @@ body {
   .app__left--footer {
     width: 64% !important;
   }
+  .app__right--header {
+    transition: transform ease-in-out 1s !important;
+  }
   .app__left--content {
     padding: 4px;
     margin-left: 0px !important;
