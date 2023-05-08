@@ -201,12 +201,10 @@ function showMap(dataLatlng) {
   //poinview
   const centerpoint = dataLatlng[Math.floor(dataLatlng.length / 2)].location;
   const [latview, lngview] = centerpoint.split(",");
-  console.log(latview, lngview);
 
   //poinend
   const end = dataLatlng[dataLatlng.length - 1].location;
   const [latsend, lngsend] = end.split(",");
-  console.log(latsend, lngsend);
   // định vị bảng đồ dựa vào pointview
   let mymap = L.map("map").setView([latview, lngview], 8);
   mymap.options.pixelRatio = window.devicePixelRatio || 1;
@@ -224,10 +222,11 @@ function showMap(dataLatlng) {
   let redMarker = L.icon({
     iconUrl:
       "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
+    iconSize: [15, 20],
+    iconAnchor: [12, 21],
+    popupAnchor: [1, -21],
   });
+
   // danh dấu vị trí
   L.marker([latstart, lngstart], { icon: redMarker })
     .addTo(mymap)
@@ -237,5 +236,27 @@ function showMap(dataLatlng) {
   L.marker([latsend, lngsend], { icon: redMarker })
     .addTo(mymap)
     .bindTooltip("Điểm kết thúc")
+    .openTooltip();
+
+  // tạo arr chứa toan bộ tọa độ diểm trong api
+  const points = dataLatlng.map((poin) => {
+    const [lat, lng] = poin.location.split(",");
+    return [lat, lng];
+  });
+  // vẽ đường đi
+  L.polyline(points, { color: "red" }).addTo(mymap);
+
+  // tạo icon cho xe
+  let carIcon = L.icon({
+    iconUrl: "../assets/img/ships.png",
+    iconSize: [20, 20],
+    iconAnchor: [16, 6],
+    popupAnchor: [1, -34],
+  });
+
+  // tạo marker mới với vị trí điểm xuất phát và sử dụng icon xe
+  L.marker([latstart, lngstart], { icon: carIcon })
+    .addTo(mymap)
+    .bindTooltip("Điểm xuất phát")
     .openTooltip();
 }
