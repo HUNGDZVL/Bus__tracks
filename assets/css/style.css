@@ -35,18 +35,21 @@ body {
   overflow-x: hidden;
 }
 
+#map {
+  position: relative;
+  z-index: 1;
+  height: 86vh;
+}
+
 .app {
   background: rgba(48, 65, 216, 0.9);
   overflow: hidden;
 }
 
-.wrapper {
-  position: relative;
-}
-
 .app__left {
   display: flex !important;
   justify-content: center;
+  max-width: 230px !important;
   align-items: center;
   flex-direction: column;
   position: relative;
@@ -60,10 +63,10 @@ body {
 .app__left .app__left--content {
   background: #fff;
   width: 100%;
-  padding: 12px;
+  padding: 4px;
   margin-left: 24px;
   border-radius: 4px;
-  height: 85vh;
+  height: 86vh;
   overflow: auto;
 }
 .app__left .app__left--content::-webkit-scrollbar {
@@ -71,21 +74,22 @@ body {
 }
 .app__left .app__left--footer {
   display: flex;
-  width: 40%;
+  width: 60%;
   background: #fff;
-  margin: 12px 0;
+  margin: 7px 0px 6px 0;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
 }
 .app__left .app__left--footer p {
   font-size: 1.6rem;
-  margin: 6px 34px;
+  margin: 3px 34px;
 }
 .app__left .app__left--footer i {
   font-size: 1.6rem;
-  margin: 6px 0;
+  margin: 3px 0;
   cursor: pointer;
+  padding: 0 6px;
 }
 
 .app__right {
@@ -106,10 +110,10 @@ body {
   color: #fff;
 }
 .app__right .app__right--content {
-  width: 99.7%;
+  width: 150% !important;
   background: #fff;
   border-radius: 4px;
-  height: 85vh;
+  height: 86vh;
   position: relative;
   transition: transform ease-in-out 1s;
 }
@@ -128,6 +132,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 2;
 }
 
 .disable {
@@ -136,23 +141,18 @@ body {
 
 .data__show {
   display: flex;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   font-weight: 500;
   justify-content: center;
   align-items: center;
-  padding: 16px 4px;
+  padding: 4px 0px;
   border-radius: 4px;
-  margin: 8px 0;
+  margin: 4px 0;
   cursor: pointer;
 }
 
 .active--color {
   background: antiquewhite;
-}
-
-.data__info {
-  font-size: 1.7rem;
-  font-weight: 500;
 }
 
 .bulkhead {
@@ -163,28 +163,27 @@ body {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   font-weight: 500;
   background: rgba(101, 176, 241, 0.9);
   padding: 15px;
-  line-height: 3.2rem;
+  line-height: 2.6rem;
   border-radius: 4px;
-  width: 14.4%;
 }
 .data__info i {
   position: absolute;
   right: 0;
   top: 0;
-  margin: 4px;
+  margin: 2px;
   padding: 4px;
   background-color: red;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .active__rightl {
-  width: 120% !important;
+  width: 121% !important;
 }
 
 /*# sourceMappingURL=style.css.map */

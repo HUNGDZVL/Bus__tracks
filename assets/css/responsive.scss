@@ -1,9 +1,62 @@
 // PC small -> ls
-@media (min-width: 1023px) and (max-width: 1260px) {
+@media (min-width: 1023px) and (max-width: 1280px) {
+  .app__left {
+    max-width: 240px !important;
+  }
+  .app__right .app__right--content {
+    width: 242% !important;
+  }
+  .app__left--footer {
+    width: 70% !important;
+    margin: 3px 0px 6px 0 !important;
+  }
+  .app__left--content {
+    padding: 0px !important;
+  }
+
+  .data__info {
+    font-size: 1.3rem;
+    padding: 22px 9px 12px 9px;
+  }
 }
 // Tablet -> m
 @media (min-width: 740px) and (max-width: 1023px) {
+  .app__right .app__right--content {
+    width: 340% !important;
+  }
+  .app__left {
+    max-width: 240px !important;
+  }
 }
 //mobile -> c
 @media (max-width: 740px) {
+  .app__right .app__right--content {
+    width: 520% !important;
+  }
+  .app__left {
+    max-width: 225px !important;
+    padding: 4px !important;
+    margin-left: 0px !important;
+    flex-shrink: 0;
+    & h2 {
+      padding: 23px !important;
+    }
+  }
+  .app__left--footer {
+    width: 64% !important;
+  }
+
+  .app__left--content {
+    padding: 4px;
+    margin-left: 0px !important;
+    max-width: 255px !important;
+  }
+  .app__right {
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+  .row {
+    flex-wrap: nowrap;
+  }
 }
