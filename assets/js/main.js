@@ -13,6 +13,7 @@ function start() {
       showInfodata();
       paginateItems();
       showMap(traskdata);
+      changIcon();
     }) // báo lỗi khi promise thất bại
     .catch((error) => {
       console.log(error);
@@ -78,7 +79,6 @@ function getDataAPI() {
 }
 
 function renderDataUi(dataItem) {
-  console.log(dataItem);
   const ListItemdata = $(".app__left--content");
   const Itemdata = document.createElement("div");
   Itemdata.setAttribute("class", "item__data");
@@ -219,8 +219,8 @@ function showMap(dataLatlng) {
   const end = dataLatlng[dataLatlng.length - 1].location;
   const [latsend, lngsend] = end.split(",");
   // định vị bảng đồ dựa vào pointview
-  let mymap = L.map("map").setView([latview, lngview], 8);
-  mymap.options.pixelRatio = window.devicePixelRatio || 1;
+  let map = L.map("map").setView([latview, lngview], 8);
+  map.options.pixelRatio = window.devicePixelRatio || 1;
   // đưa bảng đồ vào browser
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
@@ -230,7 +230,7 @@ function showMap(dataLatlng) {
     maxZoom: 18,
     tileSize: 512,
     zoomOffset: -1,
-  }).addTo(mymap);
+  }).addTo(map);
   // tạo icon màu đỏ để dánh dấu bảng đò
   let redMarker = L.icon({
     iconUrl:
@@ -240,24 +240,24 @@ function showMap(dataLatlng) {
     popupAnchor: [1, -21],
   });
 
-  // danh dấu vị trí
+  // danh dấu vị trí start
   L.marker([latstart, lngstart], { icon: redMarker })
-    .addTo(mymap)
+    .addTo(map)
     .bindTooltip("Điểm xuất phát")
     .openTooltip();
-
+  // đánh dấu vị trí end
   L.marker([latsend, lngsend], { icon: redMarker })
-    .addTo(mymap)
+    .addTo(map)
     .bindTooltip("Điểm kết thúc")
     .openTooltip();
 
-  // tạo arr chứa toan bộ tọa độ diểm trong api
+  // tạo arr chứa toan bộ tọa độ diểm trong api (destructuring)
   const points = dataLatlng.map((poin) => {
     const [lat, lng] = poin.location.split(",");
     return [lat, lng];
   });
-  // vẽ đường đi
-  L.polyline(points, { color: "red" }).addTo(mymap);
+  // vẽ đường đi dựa trên tọa độ lat and lng trong api
+  L.polyline(points, { color: "red" }).addTo(map);
 
   // tạo icon cho xe
   let carIcon = L.icon({
@@ -269,26 +269,80 @@ function showMap(dataLatlng) {
 
   // tạo marker mới với vị trí điểm xuất phát và sử dụng icon xe
   L.marker([latstart, lngstart], { icon: carIcon })
-    .addTo(mymap)
+    .addTo(map)
     .bindTooltip("Điểm xuất phát")
     .openTooltip();
-  // tạo thanh control
+  // tao thanh control
 
-  let data = dataLatlng;
-  let map = {
-    speed: 2,
-    autoPlay: true,
-    orientIcons: false,
-    marker: {
-      icon: "../assets/img/car.png",
-      iconSize: [24, 24],
-      iconAnchor: [12, 12],
+  let datas = dataLatlng;
+  let objectData = []; // tạo array lưu giá trị cần thiết cho data control
+  datas.map((poin) => {
+    // duyệt qa data trong api lấy các giá trị cần thiết
+    const [lat, lng] = poin.location.split(","); // dùng destructuring để lấy kinh độ và vĩ đô ngăn bởi dấu ,
+    const [date, time] = poin.time.split(" "); // lấy thời gian trong time api n
+    const [hour, minute, second] = time.split(":"); // dùng des để lấy giờ phút giây và đổi hết ra giấy
+    const dates = date.split("-").join("");
+    const timeS =
+      parseInt(hour, 10) * 3600 +
+      parseInt(minute, 10) * 60 +
+      parseInt(second, 10);
+
+    // lưu giá trị vào object
+    let newLat = {
+      lat: lat,
+      lng: lng,
+      time: timeS,
+    };
+    //push vô giá trị tổng data control
+    objectData.push(newLat);
+  
+  });
+  const options = {
+    tickLen: 1000,
+    targetOptions: {
+      useImg: true,
+      imgUrl: "../assets/img/ships.png",
+      height: 35,
+      with: 35,
+      iconAnchor: [25, 25],
     },
+    trackLineOptions: {
+      isDraw: true,
+      stroke: true,
+      color: "#FFFF33",
+      weight: 6,
+      fill: false,
+      fillColor: "#000",
+      opacity: 0.9,
+    },
+    playControl: true,
   };
-  const trackplayback = L.trackplayback(data, map);
+
+  const trackplayback = L.trackplayback(objectData, map, options);
+  console.log(trackplayback);
 
   // Optional  (only if you need plaback control)
   const trackplaybackControl = L.trackplaybackcontrol(trackplayback);
 
   trackplaybackControl.addTo(map);
+}
+
+function changIcon() {
+  const ListIcons = $$(".buttonContainer a");
+  for (let j = 0; j < ListIcons.length; j++) {
+    if (j != 0) {
+      ListIcons[j].style.display = "none";
+    }
+  }
+
+  const Listtime = $$(".info-container");
+  for (let i = 0; i < Listtime.length; i++) {
+    if (i == 0 || i == 1) {
+      Listtime[i].style.display = "none";
+    }
+  }
+  const texttime = $$(".info-title");
+  for (let item of texttime) {
+    item.style.display = "none";
+  }
 }

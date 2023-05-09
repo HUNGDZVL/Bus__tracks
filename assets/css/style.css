@@ -184,4 +184,45 @@ body {
 
 .active__rightl {
   width: 121% !important;
+}
+
+.leaflet-top.leaflet-right {
+  bottom: 10px;
+  top: unset;
+  right: 30px;
+  left: 30px;
+  border-radius: 15px;
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  font-weight: 600;
+  max-width: 65%;
+}
+
+.leaflet-control-playback.leaflet-control {
+  width: 100%;
+  height: 15vh;
+  margin: 0;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-around;
+  padding: 5px 20px;
+  font-size: 12px;
+}
+.leaflet-control-playback.leaflet-control .buttonContainer,
+.leaflet-control-playback.leaflet-control .infoContainer {
+  flex-basis: 50%;
+}
+.leaflet-control-playback.leaflet-control .sliderContainer {
+  flex-grow: 1;
+}
+
+.optionsContainer {
+  display: none;
+}
+
+.infoContainer {
+  display: flex;
+  justify-content: space-between;
 }/*# sourceMappingURL=style.css.map */
