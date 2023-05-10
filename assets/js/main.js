@@ -20,7 +20,7 @@ function start() {
     });
 }
 start();
-// hàm xử lí đong mở data left
+// hàm xử lí đong mở data__left
 function handleClickIcon() {
   const blockLeft = $(".app__left");
   const blockRight = $(".app__right--content");
@@ -151,8 +151,6 @@ function showInfodata() {
 }
 
 function closeItemInfo(closeIcon) {
-  const closeAll = $(".app__left");
-
   closeIcon.onclick = (e) => {
     const blockin4 = e.target.parentNode;
     blockin4.classList.add("disable");
@@ -257,55 +255,45 @@ function showMap(dataLatlng) {
     return [lat, lng];
   });
   // vẽ đường đi dựa trên tọa độ lat and lng trong api
-  L.polyline(points, { color: "red" }).addTo(map);
+  const polylineLayer = L.polyline(points, { color: "red" }).addTo(map);
+  polylineLayer.bringToBack();
 
-  // tạo icon cho xe
-  let carIcon = L.icon({
-    iconUrl: "../assets/img/ships.png",
-    iconSize: [20, 20],
-    iconAnchor: [16, 6],
-    popupAnchor: [1, -34],
-  });
-
-  // tạo marker mới với vị trí điểm xuất phát và sử dụng icon xe
-  L.marker([latstart, lngstart], { icon: carIcon })
-    .addTo(map)
-    .bindTooltip("Điểm xuất phát")
-    .openTooltip();
   // tao thanh control
 
-  let datas = dataLatlng;
-  let objectData = []; // tạo array lưu giá trị cần thiết cho data control
-  datas.map((poin) => {
-    // duyệt qa data trong api lấy các giá trị cần thiết
-    const [lat, lng] = poin.location.split(","); // dùng destructuring để lấy kinh độ và vĩ đô ngăn bởi dấu ,
-    const [date, time] = poin.time.split(" "); // lấy thời gian trong time api n
-    const [hour, minute, second] = time.split(":"); // dùng des để lấy giờ phút giây và đổi hết ra giấy
-    const dates = date.split("-").join("");
-    const timeS =
-      parseInt(hour, 10) * 3600 +
-      parseInt(minute, 10) * 60 +
-      parseInt(second, 10);
+  let objectData = [];
+  dataLatlng.map((poin) => {
+    const [lat, lng] = poin.location.split(","); // lấy tọa độ
+    const timeString = poin.time; // lấy date
+    const dates = new Date(timeString); // chuyển dổi dữ liệu date
 
-    // lưu giá trị vào object
-    let newLat = {
-      lat: lat,
-      lng: lng,
-      time: timeS,
+    // Chuyển đổi đối tượng Date sang Unix timestamp (tính bằng mili giây)
+    const unixTimestamp = dates.getTime() / 1000;
+    const direction = poin.direction;
+
+    let newDatamap = {
+      lat: parseFloat(lat),
+      lng: parseFloat(lng),
+      // chuyển đổi giá trị của biến lat và lng từ chuỗi sang số thực (floating-point number),
+      // bởi vì đối tượng L.LatLng yêu cầu giá trị của lat và lng phải là kiểu số thực.
+      time: unixTimestamp,
+      dir: direction,
     };
-    //push vô giá trị tổng data control
-    objectData.push(newLat);
-  
+
+    objectData.push(newDatamap); // đưa dữ liệu vào obj
   });
-  const options = {
-    tickLen: 1000,
+
+  // tùy chỉnh option
+  let options = {
+    tickLen: 1000, // thời gian hoạt động 1s
     targetOptions: {
+      // chọn hình ảnh điều chỉnh img
       useImg: true,
       imgUrl: "../assets/img/ships.png",
       height: 35,
       with: 35,
       iconAnchor: [25, 25],
-    },
+      pane: "markerPane",
+    }, // tùy chọn đường đi
     trackLineOptions: {
       isDraw: true,
       stroke: true,
@@ -314,10 +302,14 @@ function showMap(dataLatlng) {
       fill: false,
       fillColor: "#000",
       opacity: 0.9,
-    },
+      pane: "overlayPane",
+    }, // tùy chọn thanh điều khiển
     playControl: true,
+    // thêm option dir từ api
+    markerOptions: {
+      rotationAngle: "dir",
+    }, // thêm đoạn này để sử dụng thông tin direction trong objectData
   };
-
   const trackplayback = L.trackplayback(objectData, map, options);
   console.log(trackplayback);
 
@@ -325,6 +317,9 @@ function showMap(dataLatlng) {
   const trackplaybackControl = L.trackplaybackcontrol(trackplayback);
 
   trackplaybackControl.addTo(map);
+  trackplaybackControl.bringToFront();//để đưa thanh điều khiển phát lại lên trên cùng bản đồ, 
+  //tránh bị che khuất bởi các lớp khác. 
+ 
 }
 
 function changIcon() {
