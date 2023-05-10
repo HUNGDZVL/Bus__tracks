@@ -370,6 +370,7 @@ function checkAPI(timepl) {
     if (itemList[i].id == timepl) {
       //them acctive vô nếu bằng
       itemList[i].classList.add("checkin--color");
+      currentItem++;
       // Tìm phần tử tiếp theo cần cuộn đến
       const nextItem = itemList[i - 2];
       // bat dau croll từ item thứ 5
@@ -387,8 +388,8 @@ function checkAPI(timepl) {
     }
   }
   // kiểm tra nếu đã hiển thị đủ 500 items thì chuyển trang
-  currentItem++;
-  if (currentItem >= 500) {
+  console.log(currentItem);
+  if (currentItem >= 450) {
     currentItem = 0;
     const nextPages = $(".iright ");
     nextPages.click(); // tự động chuyển sang trang mới
