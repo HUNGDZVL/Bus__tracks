@@ -1,5 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+let = currentItem = 1;
 function start() {
   handleClickIcon();
 
@@ -299,6 +300,11 @@ function showMap(dataLatlng) {
   // tùy chỉnh option
   let options = {
     tickLen: 1000, // thời gian hoạt động 1s
+    clockOptions: {
+      speed: 5,
+      // the max speed
+      maxSpeed: 65,
+    },
     targetOptions: {
       // chọn hình ảnh điều chỉnh img
       useImg: true,
@@ -364,12 +370,27 @@ function checkAPI(timepl) {
     if (itemList[i].id == timepl) {
       //them acctive vô nếu bằng
       itemList[i].classList.add("checkin--color");
+      // Tìm phần tử tiếp theo cần cuộn đến
+      const nextItem = itemList[i - 2];
+      // bat dau croll từ item thứ 5
+      if (nextItem && i > 5) {
+        requestAnimationFrame(() => {
+          nextItem.scrollIntoView({ behavior: "smooth" });
+        });
+      }
       break;
     } else {
       // xóa đi sau 1s nếu khác
       setTimeout(() => {
         itemList[i].classList.remove("checkin--color");
-      }, 500);
+      }, 50);
     }
+  }
+  // kiểm tra nếu đã hiển thị đủ 500 items thì chuyển trang
+  currentItem++;
+  if (currentItem >= 500) {
+    currentItem = 0;
+    const nextPages = $(".iright ");
+    nextPages.click(); // tự động chuyển sang trang mới
   }
 }
