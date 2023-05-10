@@ -71,7 +71,7 @@ function getDataAPI() {
       })
       .catch((error) => {
         console.error("Error:", error);
-        reject(error); //giải quyết dữ liệu với lỗi không k data
+        reject(error); //giải quyết dữ liệu với lỗi không data
       });
   });
 }
@@ -133,7 +133,7 @@ function activeColor() {
     }
   }
 }
-
+// ham xử lí options ẩn trong api (infomation)
 function showInfodata() {
   const infoData = $$(".data__show");
   for (let i = 0; i < infoData.length; i++) {
@@ -163,6 +163,7 @@ function closeItemInfo(closeIcon) {
     blockin4.classList.add("disable");
   };
 }
+//ham phân trang
 function paginateItems() {
   // danh sach phần tử phân trang
   const Listitems = $$(".block__data");
@@ -211,7 +212,7 @@ function displayPage(crrpage, pageSz, Litems) {
     }
   }
 }
-function showMap(dataLatlng, checkAPI) {
+function showMap(dataLatlng) {
   // poinstart
   const start = dataLatlng[0].location;
   const [latstart, lngstart] = start.split(",");
@@ -364,10 +365,11 @@ function checkAPI(timepl) {
       //them acctive vô nếu bằng
       itemList[i].classList.add("checkin--color");
       break;
-    } else {// xóa đi sau 1s nếu khác
+    } else {
+      // xóa đi sau 1s nếu khác
       setTimeout(() => {
         itemList[i].classList.remove("checkin--color");
-      }, 1000);
+      }, 500);
     }
   }
 }
