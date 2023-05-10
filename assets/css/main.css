@@ -228,6 +228,35 @@ body {
   justify-content: space-between;
 }
 
+.show__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3.4rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgba(48, 65, 216, 0.85);
+  width: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+  background-color: transparent;
+  top: 80%;
+  left: 50px;
+  display: none;
+}
+.show__control i {
+  color: rgba(48, 65, 216, 0.9);
+  font-size: 1.6rem;
+}
+
+.checkin--color {
+  background: rgb(208, 128, 23);
+}
+
 /* l = pc, m = tablet, c =mobile*/
 .grid {
   width: 100%;
@@ -739,7 +768,7 @@ body {
     margin-left: 91.66667%;
   }
 }
-@media (min-width: 1023px) and (max-width: 1280px) {
+@media (min-width: 1023px) and (max-width: 1289px) {
   .app__left {
     max-width: 240px !important;
   }
@@ -757,6 +786,9 @@ body {
     font-size: 1.3rem;
     padding: 22px 9px 12px 9px;
   }
+  .leaflet-right {
+    max-width: 38% !important;
+  }
 }
 @media (min-width: 740px) and (max-width: 1023px) {
   .app__right .app__right--content {
@@ -765,8 +797,26 @@ body {
   .app__left {
     max-width: 240px !important;
   }
+  .leaflet-right {
+    max-width: 38% !important;
+  }
+  .leaflet-control-playback.leaflet-control {
+    height: 8vh;
+  }
+  .leaflet-control-playback .infoContainer {
+    flex-grow: 1;
+  }
 }
 @media (max-width: 740px) {
+  .leaflet-right {
+    max-width: 22% !important;
+  }
+  .info-container {
+    width: 74px !important;
+  }
+  .leaflet-control-playback .infoContainer {
+    flex-grow: 1;
+  }
   .app__right .app__right--content {
     width: 520% !important;
   }
@@ -798,4 +848,6 @@ body {
   .row {
     flex-wrap: nowrap;
   }
-}/*# sourceMappingURL=main.css.map */
+}
+
+/*# sourceMappingURL=main.css.map */

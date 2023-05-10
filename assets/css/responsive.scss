@@ -1,5 +1,5 @@
 // PC small -> ls
-@media (min-width: 1023px) and (max-width: 1280px) {
+@media (min-width: 1023px) and (max-width: 1289px) {
   .app__left {
     max-width: 240px !important;
   }
@@ -18,6 +18,9 @@
     font-size: 1.3rem;
     padding: 22px 9px 12px 9px;
   }
+  .leaflet-right {
+    max-width: 38% !important;
+  }
 }
 // Tablet -> m
 @media (min-width: 740px) and (max-width: 1023px) {
@@ -27,9 +30,28 @@
   .app__left {
     max-width: 240px !important;
   }
+  .leaflet-right {
+    max-width: 38% !important;
+  }
+  .leaflet-control-playback.leaflet-control {
+    height: 8vh;
+  }
+  .leaflet-control-playback .infoContainer {
+    flex-grow: 1;
+  }
 }
 //mobile -> c
 @media (max-width: 740px) {
+  .leaflet-right {
+    max-width: 22% !important;
+  }
+  .info-container {
+    width: 74px !important;
+  }
+  .leaflet-control-playback .infoContainer {
+    flex-grow: 1;
+  }
+
   .app__right .app__right--content {
     width: 520% !important;
   }
@@ -46,7 +68,7 @@
     width: 64% !important;
   }
   .app__right--header {
-    transition: transform ease-in-out 1s!important;
+    transition: transform ease-in-out 1s !important;
   }
 
   .app__left--content {

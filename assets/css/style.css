@@ -225,4 +225,35 @@ body {
 .infoContainer {
   display: flex;
   justify-content: space-between;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.show__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3.4rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgba(48, 65, 216, 0.85);
+  width: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+  background-color: transparent;
+  top: 80%;
+  left: 50px;
+  display: none;
+}
+.show__control i {
+  color: rgba(48, 65, 216, 0.9);
+  font-size: 1.6rem;
+}
+
+.checkin--color {
+  background: rgb(208, 128, 23);
+}
+
+/*# sourceMappingURL=style.css.map */

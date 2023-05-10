@@ -1,6 +1,5 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-
 function start() {
   handleClickIcon();
 
@@ -13,7 +12,6 @@ function start() {
       showInfodata();
       paginateItems();
       showMap(traskdata);
-      changIcon();
     }) // báo lỗi khi promise thất bại
     .catch((error) => {
       console.log(error);
@@ -82,10 +80,19 @@ function renderDataUi(dataItem) {
   const ListItemdata = $(".app__left--content");
   const Itemdata = document.createElement("div");
   Itemdata.setAttribute("class", "item__data");
+  // them id là định dàng time unix để xử lí với time unix trong map khi thanh control tới mốc time
   const htmls = dataItem.map((value, index) => {
+    //
+    const timeStr = value.time; // lấy date
+    const changedate = new Date(timeStr); // chuyển dổi dữ liệu date
+
+    // Chuyển đổi đối tượng Date sang Unix timestamp (tính bằng mili giây)
+    const unixTimes = changedate.getTime() / 1000;
+
+    //
     return `
         <div class="block__data">
-            <div class="data__show class-${index}">
+            <div class="data__show class-${index}" id="${unixTimes}">
                 <div class="data__time">${value.time.split(" ")[1]}</div>
                 <span class="bulkhead">|</span>
                 <div class="data__location">${value.location.replace(
@@ -204,7 +211,7 @@ function displayPage(crrpage, pageSz, Litems) {
     }
   }
 }
-function showMap(dataLatlng) {
+function showMap(dataLatlng, checkAPI) {
   // poinstart
   const start = dataLatlng[0].location;
   const [latstart, lngstart] = start.split(",");
@@ -255,24 +262,30 @@ function showMap(dataLatlng) {
     return [lat, lng];
   });
   // vẽ đường đi dựa trên tọa độ lat and lng trong api
-  const polylineLayer = L.polyline(points, { color: "red" }).addTo(map);
-  polylineLayer.bringToBack();
+  L.polyline(points, {
+    color: "red",
+    opacity: 0.3,
+    zIndex: 1,
+  }).addTo(map);
 
   // tao thanh control
 
   let objectData = [];
   dataLatlng.map((poin) => {
-    const [lat, lng] = poin.location.split(","); // lấy tọa độ
+    const [latS, lngS] = poin.location.split(","); // lấy tọa độ
     const timeString = poin.time; // lấy date
     const dates = new Date(timeString); // chuyển dổi dữ liệu date
 
     // Chuyển đổi đối tượng Date sang Unix timestamp (tính bằng mili giây)
     const unixTimestamp = dates.getTime() / 1000;
+    //
+
+    //
     const direction = poin.direction;
 
     let newDatamap = {
-      lat: parseFloat(lat),
-      lng: parseFloat(lng),
+      lat: parseFloat(latS),
+      lng: parseFloat(lngS),
       // chuyển đổi giá trị của biến lat và lng từ chuỗi sang số thực (floating-point number),
       // bởi vì đối tượng L.LatLng yêu cầu giá trị của lat và lng phải là kiểu số thực.
       time: unixTimestamp,
@@ -292,7 +305,8 @@ function showMap(dataLatlng) {
       height: 35,
       with: 35,
       iconAnchor: [25, 25],
-      pane: "markerPane",
+      position: "relative",
+      zIndex: 1,
     }, // tùy chọn đường đi
     trackLineOptions: {
       isDraw: true,
@@ -302,42 +316,58 @@ function showMap(dataLatlng) {
       fill: false,
       fillColor: "#000",
       opacity: 0.9,
-      pane: "overlayPane",
+      zIndex: 1000,
     }, // tùy chọn thanh điều khiển
     playControl: true,
     // thêm option dir từ api
-    markerOptions: {
-      rotationAngle: "dir",
-    }, // thêm đoạn này để sử dụng thông tin direction trong objectData
+    // markerOptions: {
+    //   //rotationAngle: "dir",
+    // }, // thêm đoạn này để sử dụng thông tin direction trong objectData
   };
   const trackplayback = L.trackplayback(objectData, map, options);
-  console.log(trackplayback);
 
   // Optional  (only if you need plaback control)
   const trackplaybackControl = L.trackplaybackcontrol(trackplayback);
 
   trackplaybackControl.addTo(map);
-  trackplaybackControl.bringToFront();//để đưa thanh điều khiển phát lại lên trên cùng bản đồ, 
-  //tránh bị che khuất bởi các lớp khác. 
- 
+  const iconsclose = $(".btn-close");
+  iconsclose.style.display = "none";
+  // Lắng nghe sự kiện playback:tick để lấy tọa độ
+  trackplayback.on(
+    "tick",
+    (e) => {
+      const checktimeplay = Math.floor(e.time);
+      // const date = new Date(e.time * 1000);
+      // const hours = date.getHours();
+      // const minutes = date.getMinutes();
+      // const seconds = date.getSeconds();
+      // //chuyển đổi thời gian đang chạy của Leaflet.TrackPlayBack từ dạng Unix timestamp
+      // //sang dạng chuỗi có định dạng giờ:phút:giây và định dạng lại chuỗi theo cấu trúc hh:mm:ss.
+      // const timeplay = `${hours}:${minutes}:${seconds}`;
+      // const [h1, m1, s1] = timeplay.split(":").map(Number);
+      // const str1Formatted = `${h1 < 10 ? "0" : ""}${h1}:${
+      //   m1 < 10 ? "0" : ""
+      // }${m1}:${s1 < 10 ? "0" : ""}${s1}`;
+
+      // checkAPI(str1Formatted);
+      checkAPI(checktimeplay);
+    },
+    this
+  );
 }
 
-function changIcon() {
-  const ListIcons = $$(".buttonContainer a");
-  for (let j = 0; j < ListIcons.length; j++) {
-    if (j != 0) {
-      ListIcons[j].style.display = "none";
+function checkAPI(timepl) {
+  const itemList = $$(".data__show");
+  for (let i = 0; i < itemList.length; i++) {
+    //check xem id cua có bằng vs time play floor hay chưa
+    if (itemList[i].id == timepl) {
+      //them acctive vô nếu bằng
+      itemList[i].classList.add("checkin--color");
+      break;
+    } else {// xóa đi sau 1s nếu khác
+      setTimeout(() => {
+        itemList[i].classList.remove("checkin--color");
+      }, 1000);
     }
-  }
-
-  const Listtime = $$(".info-container");
-  for (let i = 0; i < Listtime.length; i++) {
-    if (i == 0 || i == 1) {
-      Listtime[i].style.display = "none";
-    }
-  }
-  const texttime = $$(".info-title");
-  for (let item of texttime) {
-    item.style.display = "none";
   }
 }

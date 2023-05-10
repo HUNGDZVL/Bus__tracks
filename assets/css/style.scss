@@ -34,6 +34,23 @@ $colorBackground: rgba(48, 65, 216, 0.9);
 $colortext: #fff;
 $colorbackgroundItem: antiquewhite;
 $colorInfo: rgb(101, 176, 241, 0.9);
+
+@mixin setupIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3.4rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgba(48, 65, 216, 0.85);
+  width: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
 //
 body {
   max-width: 100%;
@@ -119,20 +136,7 @@ body {
   }
 }
 .app__right--icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 3.4rem;
-  font-weight: 600;
-  color: #fff;
-  background-color: rgba(48, 65, 216, 0.85);
-  width: 30px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 2;
+  @include setupIcon();
 }
 
 .disable {
@@ -220,4 +224,18 @@ body {
 .infoContainer {
   display: flex;
   justify-content: space-between;
+}
+.show__control {
+  @include setupIcon();
+  background-color: transparent;
+  top: 80%;
+  left: 50px;
+  display: none;
+  & i{
+    color: $colorBackground;
+    font-size: 1.6rem;
+  }
+}
+.checkin--color {
+    background: rgb(208, 128, 23);
 }
