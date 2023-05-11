@@ -48,24 +48,19 @@ body {
 }
 
 .app__left {
-  display: flex !important;
-  justify-content: center;
-  max-width: 230px !important;
-  align-items: center;
-  flex-direction: column;
   position: relative;
-  transition: transform ease-in-out 1s;
+  transition: width 2s ease;
 }
 .app__left h2 {
   padding: 24px;
   font-size: 1.6rem;
   color: #fff;
+  text-align: center;
 }
 .app__left .app__left--content {
   background: #fff;
   width: 100%;
   padding: 4px;
-  margin-left: 24px;
   border-radius: 4px;
   height: 86vh;
   overflow: auto;
@@ -77,7 +72,7 @@ body {
   display: flex;
   width: 60%;
   background: #fff;
-  margin: 7px 0px 6px 0;
+  margin: 4px auto;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
@@ -93,11 +88,16 @@ body {
   padding: 0 6px;
 }
 
+.l-10,
+.l-12 {
+  transition: width 2s ease-in;
+}
+
 .app__right {
   position: relative;
 }
 .app__right .app__right--header {
-  display: flex !important;
+  display: flex;
   align-items: center;
   flex-direction: row;
   padding: 12px;
@@ -111,18 +111,16 @@ body {
   color: #fff;
 }
 .app__right .app__right--content {
-  width: 150% !important;
+  width: 150%;
   background: #fff;
   border-radius: 4px;
   height: 86vh;
   position: relative;
-  transition: transform ease-in-out 1s;
 }
 
 .app__right--icon {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 3.4rem;
   font-weight: 600;
   color: #fff;
@@ -134,6 +132,7 @@ body {
   align-items: center;
   cursor: pointer;
   z-index: 2;
+  margin-left: -2px;
 }
 
 .disable {
@@ -163,7 +162,6 @@ body {
 .data__info {
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 1.6rem;
   font-weight: 500;
   background: rgba(101, 176, 241, 0.9);
@@ -201,7 +199,7 @@ body {
 
 .leaflet-control-playback.leaflet-control {
   width: 100%;
-  height: 15vh;
+  height: 10vh;
   margin: 0;
   border-radius: 10px;
   display: flex;
@@ -213,10 +211,10 @@ body {
 }
 .leaflet-control-playback.leaflet-control .buttonContainer,
 .leaflet-control-playback.leaflet-control .infoContainer {
-  flex-basis: 50%;
+  flex-basis: 45%;
 }
 .leaflet-control-playback.leaflet-control .sliderContainer {
-  flex-grow: 1;
+  flex-basis: 100%;
 }
 
 .optionsContainer {
@@ -231,7 +229,6 @@ body {
 .show__control {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 3.4rem;
   font-weight: 600;
   color: #fff;
@@ -517,16 +514,16 @@ body {
 /* PC medium resolution > */
 @media (min-width: 1113px) {
   .row {
-    margin-left: -12px;
-    margin-right: -12px;
+    margin-left: -4px;
+    margin-right: -4px;
   }
   .row.sm-gutter {
     margin-left: -5px;
     margin-right: -5px;
   }
   .col {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
   .row.sm-gutter .col {
     padding-left: 5px;
@@ -649,16 +646,16 @@ body {
     width: 984px;
   }
   .row {
-    margin-left: -12px;
-    margin-right: -12px;
+    margin-left: -6px;
+    margin-right: -6px;
   }
   .row.sm-gutter {
     margin-left: -5px;
     margin-right: -5px;
   }
   .col {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
   .row.sm-gutter .col {
     padding-left: 5px;
@@ -769,84 +766,31 @@ body {
   }
 }
 @media (min-width: 1023px) and (max-width: 1289px) {
-  .app__left {
-    max-width: 240px !important;
-  }
-  .app__right .app__right--content {
-    width: 242% !important;
-  }
-  .app__left--footer {
-    width: 70% !important;
-    margin: 3px 0px 6px 0 !important;
-  }
-  .app__left--content {
-    padding: 0px !important;
-  }
-  .data__info {
-    font-size: 1.3rem;
-    padding: 22px 9px 12px 9px;
-  }
-  .leaflet-right {
-    max-width: 38% !important;
+  .infoContainer {
+    flex: 1;
   }
 }
 @media (min-width: 740px) and (max-width: 1023px) {
-  .app__right .app__right--content {
-    width: 340% !important;
+  .infoContainer {
+    flex: 1;
   }
-  .app__left {
-    max-width: 240px !important;
-  }
-  .leaflet-right {
-    max-width: 38% !important;
-  }
-  .leaflet-control-playback.leaflet-control {
-    height: 8vh;
-  }
-  .leaflet-control-playback .infoContainer {
-    flex-grow: 1;
+  .data__show {
+    font-size: 1.4em;
   }
 }
 @media (max-width: 740px) {
-  .leaflet-right {
-    max-width: 22% !important;
-  }
-  .info-container {
-    width: 74px !important;
-  }
-  .leaflet-control-playback .infoContainer {
-    flex-grow: 1;
-  }
-  .app__right .app__right--content {
-    width: 520% !important;
-  }
-  .app__left {
-    max-width: 225px !important;
-    padding: 4px !important;
-    margin-left: 0px !important;
-    flex-shrink: 0;
-  }
-  .app__left h2 {
-    padding: 23px !important;
-  }
-  .app__left--footer {
-    width: 64% !important;
-  }
-  .app__right--header {
-    transition: transform ease-in-out 1s !important;
-  }
-  .app__left--content {
+  .app__right .app__right--header {
     padding: 4px;
-    margin-left: 0px !important;
-    max-width: 255px !important;
   }
-  .app__right {
-    position: relative;
-    flex-grow: 1;
-    flex-shrink: 0;
+  .leaflet-control-playback.leaflet-control {
+    width: 110%;
+    height: 12vh;
   }
-  .row {
-    flex-wrap: nowrap;
+  .leaflet-control-playback.leaflet-control .buttonContainer {
+    flex-basis: 34%;
+  }
+  .leaflet-control-playback.leaflet-control .infoContainer {
+    flex-basis: 66%;
   }
 }
 

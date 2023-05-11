@@ -38,7 +38,6 @@ $colorInfo: rgb(101, 176, 241, 0.9);
 @mixin setupIcon {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 3.4rem;
   font-weight: 600;
   color: #fff;
@@ -65,24 +64,20 @@ body {
   background: $colorBackground;
   overflow: hidden;
 }
+
 .app__left {
-  display: flex !important;
-  justify-content: center;
-  max-width: 230px !important;
-  align-items: center;
-  flex-direction: column;
   position: relative;
-  transition: transform ease-in-out 1s;
+  transition: width 2s ease;
   & h2 {
     padding: 24px;
     font-size: 1.6rem;
     color: $colortext;
+    text-align: center;
   }
   & .app__left--content {
     background: $colortext;
     width: 100%;
     padding: 4px;
-    margin-left: 24px;
     border-radius: 4px;
     height: 86vh;
     overflow: auto;
@@ -94,7 +89,7 @@ body {
     display: flex;
     width: 60%;
     background: $colortext;
-    margin: 7px 0px 6px 0;
+    margin: 4px auto;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
@@ -110,10 +105,14 @@ body {
     }
   }
 }
+.l-10,
+.l-12 {
+  transition: width 2s ease-in;
+}
 .app__right {
   position: relative;
   & .app__right--header {
-    display: flex !important;
+    display: flex;
     align-items: center;
     flex-direction: row;
     padding: 12px;
@@ -127,16 +126,16 @@ body {
     }
   }
   & .app__right--content {
-    width: 150% !important;
+    width: 150%;
     background: $colortext;
     border-radius: 4px;
     height: 86vh;
     position: relative;
-    transition: transform ease-in-out 1s;
   }
 }
 .app__right--icon {
   @include setupIcon();
+  margin-left: -2px;
 }
 
 .disable {
@@ -164,7 +163,6 @@ body {
 .data__info {
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 1.6rem;
   font-weight: 500;
   background: $colorInfo;
@@ -201,7 +199,7 @@ body {
 }
 .leaflet-control-playback.leaflet-control {
   width: 100%;
-  height: 15vh;
+  height: 10vh;
   margin: 0;
   border-radius: 10px;
   display: flex;
@@ -212,10 +210,10 @@ body {
   font-size: 12px;
   & .buttonContainer,
   .infoContainer {
-    flex-basis: 50%;
+    flex-basis: 45%;
   }
   & .sliderContainer {
-    flex-grow: 1;
+    flex-basis: 100%;
   }
 }
 .optionsContainer {
@@ -231,11 +229,11 @@ body {
   top: 80%;
   left: 50px;
   display: none;
-  & i{
+  & i {
     color: $colorBackground;
     font-size: 1.6rem;
   }
 }
 .checkin--color {
-    background: rgb(208, 128, 23);
+  background: rgb(208, 128, 23);
 }

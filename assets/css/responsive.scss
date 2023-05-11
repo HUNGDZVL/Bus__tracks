@@ -1,87 +1,34 @@
 // PC small -> ls
 @media (min-width: 1023px) and (max-width: 1289px) {
-  .app__left {
-    max-width: 240px !important;
-  }
-  .app__right .app__right--content {
-    width: 242% !important;
-  }
-  .app__left--footer {
-    width: 70% !important;
-    margin: 3px 0px 6px 0 !important;
-  }
-  .app__left--content {
-    padding: 0px !important;
-  }
-
-  .data__info {
-    font-size: 1.3rem;
-    padding: 22px 9px 12px 9px;
-  }
-  .leaflet-right {
-    max-width: 38% !important;
+  .infoContainer {
+    flex: 1;
   }
 }
 // Tablet -> m
 @media (min-width: 740px) and (max-width: 1023px) {
-  .app__right .app__right--content {
-    width: 340% !important;
+  .infoContainer {
+    flex: 1;
   }
-  .app__left {
-    max-width: 240px !important;
-  }
-  .leaflet-right {
-    max-width: 38% !important;
-  }
-  .leaflet-control-playback.leaflet-control {
-    height: 8vh;
-  }
-  .leaflet-control-playback .infoContainer {
-    flex-grow: 1;
+  .data__show {
+    font-size: 1.4em;
   }
 }
 //mobile -> c
-@media (max-width: 740px) {
-  .leaflet-right {
-    max-width: 22% !important;
-  }
-  .info-container {
-    width: 74px !important;
-  }
-  .leaflet-control-playback .infoContainer {
-    flex-grow: 1;
-  }
 
-  .app__right .app__right--content {
-    width: 520% !important;
-  }
-  .app__left {
-    max-width: 225px !important;
-    padding: 4px !important;
-    margin-left: 0px !important;
-    flex-shrink: 0;
-    & h2 {
-      padding: 23px !important;
+@media (max-width: 740px) {
+  .app__right {
+    .app__right--header {
+      padding: 4px;
     }
   }
-  .app__left--footer {
-    width: 64% !important;
+  .leaflet-control-playback.leaflet-control {
+    width: 110%;
+    height: 12vh;
   }
-  .app__right--header {
-    transition: transform ease-in-out 1s !important;
+  .leaflet-control-playback.leaflet-control .buttonContainer{
+    flex-basis: 34%;
   }
-
-  .app__left--content {
-    padding: 4px;
-    margin-left: 0px !important;
-    max-width: 255px !important;
-  }
-  .app__right {
-    position: relative;
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-  .row {
-    flex-wrap: nowrap;
+  .leaflet-control-playback.leaflet-control .infoContainer {
+    flex-basis: 66%;
   }
 }

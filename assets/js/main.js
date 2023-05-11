@@ -22,7 +22,7 @@ start();
 // hàm xử lí đong mở data__left
 function handleClickIcon() {
   const blockLeft = $(".app__left");
-  const blockRight = $(".app__right--content");
+  const blockRight = $(".app__right");
   const iconLeft = $(".icon--left");
   const iconRight = $(".icon--right");
   const itemIcon = $(".app__right--icon");
@@ -32,30 +32,26 @@ function handleClickIcon() {
 
     iconLeft.classList.toggle("disable");
     iconRight.classList.toggle("disable");
-    // kiểm tra xem nếu icon mũi tên phía trái có class disable thì thực hiện di chuyên ra ngoài
+
+    //kiểm tra xem nếu icon mũi tên phía trái có class disable thì thực hiện di chuyên ra ngoài
     if (iconLeft.classList.contains("disable")) {
-      blockLeft.style.transform = "translateX(-100%)";
-      blockRight.style.transform = "translateX(-13%)";
-      // check kich thước man hình mobile
-      if (window.matchMedia("(max-width: 740px)").matches) {
-        // Thực thi code JavaScript tại đây
-        fixMobilecontent.style.transform = "translateX(-50%)";
-      }
-      blockRight.classList.add("active__rightl");
-    } else {
-      // di chuyển về vị trí cũ
-      blockLeft.style.transform = "translateX(0%)";
-      blockRight.style.transform = "translateX(0%)";
-      // check kich thước man hình mobile
-
-      if (window.matchMedia("(max-width: 740px)").matches) {
-        // Thực thi code JavaScript tại đây
-        fixMobilecontent.style.transform = "translateX(0%)";
-      }
-
-      setTimeout(() => {
-        blockRight.classList.remove("active__rightl");
-      }, 1500);
+      blockLeft.classList.replace("l-2", "l-0");
+      blockLeft.classList.replace("ls-3", "ls-0");
+      blockLeft.classList.replace("m-4", "m-0");
+      blockLeft.classList.replace("c-7", "c-0");
+      blockRight.classList.replace("l-10", "l-12");
+      blockRight.classList.replace("ls-9", "ls-12");
+      blockRight.classList.replace("m-8", "m-12");
+      blockRight.classList.replace("c-5", "c-12");
+    }else{
+      blockLeft.classList.replace("l-0", "l-2");
+      blockLeft.classList.replace("ls-0", "ls-3");
+      blockLeft.classList.replace("m-0", "m-4");
+      blockLeft.classList.replace("c-0", "c-7");
+      blockRight.classList.replace("l-12", "l-10");
+      blockRight.classList.replace("ls-12", "ls-9");
+      blockRight.classList.replace("m-12", "m-8");
+      blockRight.classList.replace("c-12", "c-5");
     }
   };
 }
