@@ -43,7 +43,7 @@ function handleClickIcon() {
       blockRight.classList.replace("ls-9", "ls-12");
       blockRight.classList.replace("m-8", "m-12");
       blockRight.classList.replace("c-5", "c-12");
-    }else{
+    } else {
       blockLeft.classList.replace("l-0", "l-2");
       blockLeft.classList.replace("ls-0", "ls-3");
       blockLeft.classList.replace("m-0", "m-4");
@@ -384,8 +384,7 @@ function checkAPI(timepl) {
     }
   }
   // kiểm tra nếu đã hiển thị đủ 500 items thì chuyển trang
-  console.log(currentItem);
-  if (currentItem >= 450) {
+  if (currentItem >= 490) {
     currentItem = 0;
     const nextPages = $(".iright ");
     nextPages.click(); // tự động chuyển sang trang mới
